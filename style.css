@@ -1,0 +1,95 @@
+body {
+    text-align: center;
+    background-image: url('./assets/images/background3.png');
+    background-size: cover; 
+    background-position: center;
+    background-repeat: repeat;
+    margin: 0; /* Remove default body margin */
+    height: 100vh; /* Full viewport height */
+    overflow: hidden; /* Prevent scrollbars */
+}
+
+#board {
+    position: absolute;
+    top: 120px; /* Move the canvas down to create space for the logo */
+    left: 50%;
+    transform: translateX(-50%);
+    background-image: url(./assets/images/background1.png);
+    z-index: 1; /* Ensure game canvas is below the logo */
+    border: 2px solid #000;
+    box-shadow: 0 50px 70px rgba(0, 0, 0, 15);
+}
+
+.logo-container {
+    position: absolute;
+    top: 10px; /* Position the logo at the top of the viewport */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2; /* Ensure logo is above the canvas */
+    margin-bottom: 50px; /* Create space below the logo */
+}
+
+.logo {
+    width: 500px; /* Adjust size as needed */
+    height: auto;
+}
+
+.dust-cloud {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-image: url('./assets/images/dust.png');
+    pointer-events: none; /* Makes sure the dust doesn't interfere with game interactions */
+    animation: dust 0.5s forwards;
+}
+
+@keyframes dust {
+    0% { opacity: 1; transform: scale(1); }
+    100% { opacity: 0; transform: scale(2); }
+}
+
+#music-toggle {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 10px;
+    background-color: #333;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    z-index: 2; /* Ensure button is above the canvas and logo */
+}
+
+
+@media (max-width: 768px) {
+    #board {
+        top: 100px; /* Reduce top space on smaller screens */
+    }
+
+    .logo {
+        width: 90%; /* Make logo slightly larger on small screens */
+        max-width: 600px; /* Limit the maximum size */
+    }
+
+    #music-toggle {
+        font-size: 14px; /* Adjust button size for smaller screens */
+        padding: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    #board {
+        top: 60px; /* Further reduce top space on very small screens */
+    }
+
+    .logo {
+        width: 100%; /* Make logo larger on very small screens */
+        max-width: 400px; /* Limit the maximum size */
+    }
+
+    #music-toggle {
+        font-size: 12px; /* Adjust button size for very small screens */
+        padding: 6px;
+    }
+}
