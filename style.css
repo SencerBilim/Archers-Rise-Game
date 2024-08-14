@@ -4,33 +4,38 @@ body {
     background-size: cover; 
     background-position: center;
     background-repeat: repeat;
-    margin: 0; /* Remove default body margin */
-    height: 100vh; /* Full viewport height */
+    margin: 0; 
+    height: 100vh; 
     overflow: hidden; /* Prevent scrollbars */
 }
 
 #board {
     position: absolute;
-    top: 120px; /* Move the canvas down to create space for the logo */
+    top: 120px; 
     left: 50%;
     transform: translateX(-50%);
     background-image: url(./assets/images/background1.png);
-    z-index: 1; /* Ensure game canvas is below the logo */
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 1; 
     border: 2px solid #000;
     box-shadow: 0 50px 70px rgba(0, 0, 0, 15);
+    height: auto;
+    max-height: 70vh; 
 }
 
 .logo-container {
     position: absolute;
-    top: 10px; /* Position the logo at the top of the viewport */
+    top: 10px;
     left: 50%;
     transform: translateX(-50%);
-    z-index: 2; /* Ensure logo is above the canvas */
-    margin-bottom: 50px; /* Create space below the logo */
+    z-index: 2; 
+    margin-bottom: 50px; 
 }
 
 .logo {
-    width: 500px; /* Adjust size as needed */
+    width: 500px; 
     height: auto;
 }
 
@@ -39,7 +44,7 @@ body {
     width: 20px;
     height: 20px;
     background-image: url('./assets/images/dust.png');
-    pointer-events: none; /* Makes sure the dust doesn't interfere with game interactions */
+    pointer-events: none;
     animation: dust 0.5s forwards;
 }
 
@@ -58,38 +63,39 @@ body {
     border: none;
     cursor: pointer;
     font-size: 16px;
-    z-index: 2; /* Ensure button is above the canvas and logo */
+    z-index: 2; 
 }
-
 
 @media (max-width: 768px) {
     #board {
-        top: 100px; /* Reduce top space on smaller screens */
+        top: 100px; 
+        max-height: 60vh; 
     }
 
     .logo {
-        width: 90%; /* Make logo slightly larger on small screens */
-        max-width: 600px; /* Limit the maximum size */
+        width: 90%; 
+        max-width: 600px; 
     }
 
     #music-toggle {
-        font-size: 14px; /* Adjust button size for smaller screens */
+        font-size: 14px; 
         padding: 8px;
     }
 }
 
 @media (max-width: 480px) {
     #board {
-        top: 60px; /* Further reduce top space on very small screens */
+        top: 60px; 
+        max-height: 50vh; 
     }
 
     .logo {
-        width: 100%; /* Make logo larger on very small screens */
-        max-width: 400px; /* Limit the maximum size */
+        width: 100%; 
+        max-width: 400px; 
     }
 
     #music-toggle {
-        font-size: 12px; /* Adjust button size for very small screens */
+        font-size: 12px; 
         padding: 6px;
     }
 }

@@ -86,7 +86,7 @@ window.onload = function () {
 
     // Music control
     document.getElementById('music-toggle').addEventListener('click', function() {
-        console.log("Button clicked!");
+       
 
         if (isMusicPlaying) {
             backgroundMusic.pause();
@@ -280,7 +280,7 @@ function newPlatform() {
 function placePlatforms() {
     platformArray = [];
 
-    // Starting platform (close to the bottom of the screen)
+    // Starting platform
     let platform = {
         img: platformImg,
         x: boardWidth / 2 - platformWidth / 2,
@@ -291,8 +291,8 @@ function placePlatforms() {
 
     platformArray.push(platform);
 
-    const minXDistance = platformWidth * 2; // Minimum horizontal distance between platforms
-    const maxAttempts = 10; // Maximum attempts to find a valid position
+    const minXDistance = platformWidth * 2; 
+    const maxAttempts = 10; 
 
     for (let i = 1; i < 5; i++) {
         let randomX;
@@ -311,11 +311,7 @@ function placePlatforms() {
             attempts++;
         } while (attempts < maxAttempts); // Try up to maxAttempts to find a valid position
 
-        // If unable to find a valid position, log a warning
-        if (attempts >= maxAttempts) {
-            console.warn('Max attempts reached for finding a valid position.');
-        }
-
+    
         // Generate a random y position above the last platform with a minimum distance
         let minYDistance = platformHeight * 5; // Minimum vertical distance between platforms
         let maxYDistance = platformHeight * 6; // Maximum vertical distance between platforms
@@ -333,8 +329,6 @@ function placePlatforms() {
             width: platformWidth,
             height: platformHeight
         };
-
-        console.log(`New platform X: ${randomX}, Y: ${newY}`); // Debug log
 
         platformArray.push(platform);
     }
