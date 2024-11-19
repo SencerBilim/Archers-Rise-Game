@@ -25,9 +25,9 @@
 
 
 Deployment
-The game is deployed on GitHub Pages. You can access it via the following URL:
+The game is deployed on Vercel. You can access it via the following URL:
 
-https://sencerbilim.github.io/Archers-Rise-Game/
+https://archers-rise.vercel.app/
 
 Contributing
 If you'd like to contribute to the project, please follow these steps:
