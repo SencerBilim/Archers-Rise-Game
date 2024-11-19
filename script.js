@@ -44,11 +44,7 @@ let thresholdHeight = boardHeight * 1 / 2;
 const landingSound = new Audio('./assets/sounds/land.mp3');
 landingSound.volume = 0.6;
 
-let backgroundMusic = new Audio('./assets/sounds/background.mp3');
-backgroundMusic.loop = true; 
-backgroundMusic.volume = 0.2; 
-backgroundMusic.play(); 
-let isMusicPlaying = true;
+
 
 // Key States
 let isRightPressed = false;
@@ -84,20 +80,28 @@ window.onload = function () {
     document.addEventListener("keydown", handleKeyDown);
     document.addEventListener("keyup", handleKeyUp);
 
-    // Music control
-    document.getElementById('music-toggle').addEventListener('click', function() {
-       
-
-        if (isMusicPlaying) {
-            backgroundMusic.pause();
-            isMusicPlaying = false;
-            this.textContent = "Music On";
+    board.addEventListener("touchstart", function(e) {
+        if (gameOver) {
+            restartGame(); // Call restart logic
         } else {
-            backgroundMusic.play();
-            isMusicPlaying = true;
-            this.textContent = "Music Off";
+            // Regular touch logic
+            touchStartX = e.touches[0].clientX;
         }
     });
+
+
+    function restartGame() {
+        archer.x = archerX;
+        archer.y = archerY;
+        velocityX = 0;
+        velocityY = initialVelocityY;
+        score = 0;
+        maxScore = 0;
+        gameOver = false;
+        placePlatforms(); // Reset platforms
+    }
+
+
     // Touch event listeners
     board.addEventListener("touchstart", function(e) {
         // Get the touch start position
@@ -335,11 +339,27 @@ function placePlatforms() {
 }
 
 function detectCollision(a, b) {
-    return a.x < b.x + b.width &&
-        a.x + a.width > b.x &&
-        a.y < b.y + b.height &&
-        a.y + a.height > b.y;
+    // Archer's bottom-right and bottom-left points
+    const archerBottomLeft = { x: a.x, y: a.y + a.height };
+    const archerBottomRight = { x: a.x + a.width, y: a.y + a.height };
+
+    // Platform's top edges
+    const platformTopLeft = { x: b.x, y: b.y };
+    const platformTopRight = { x: b.x + b.width, y: b.y };
+
+    // Check horizontal overlap with a small buffer
+    const horizontalOverlap = 
+        archerBottomLeft.x < platformTopRight.x &&
+        archerBottomRight.x > platformTopLeft.x;
+
+    // Check vertical proximity with a small buffer
+    const verticalProximity = 
+        archerBottomLeft.y >= platformTopLeft.y - 5 &&
+        archerBottomLeft.y <= platformTopLeft.y + 50;
+
+    return horizontalOverlap && verticalProximity;
 }
+
 
 function updateScore() {
     let points = 10; // Each platform passed gives 10 points
@@ -357,10 +377,12 @@ function updateScore() {
 function drawDust(x, y) {
     context.fillStyle = "white";
     context.beginPath();
-    context.arc(x, y, 3, 0, 2 * Math.PI);
+    context.arc(x, y, 3, 0, 5 * Math.PI);
     context.fill();
 
     setTimeout(() => {
         context.clearRect(x - 3, y - 3, 6, 6);
     }, 100);
 }
+
+
